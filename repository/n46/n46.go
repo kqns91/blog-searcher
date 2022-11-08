@@ -79,6 +79,8 @@ func (n *n46) GetBlogs(ctx context.Context) ([]*model.Blog, error) {
 			return nil, fmt.Errorf("failed to convert int: %w", err)
 		}
 
+		st += rw
+
 		if total <= len(result) {
 			break
 		}
