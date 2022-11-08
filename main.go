@@ -61,10 +61,3 @@ func main() {
 	}
 }
 
-func init() {
-	os.Setenv("OPEN_SEARCH_ADDRESS", "https://localhost:9200")
-	os.Setenv("USER_NAME", "admin")
-	os.Setenv("PASSWORD", "admin")
-	os.Setenv("N46_BASEURL", "https://www.nogizaka46.com/s/n46/api/list")
-	os.Setenv("PORT", "8081")
-}
