@@ -31,7 +31,8 @@ func SetRouteFunc(handler Handler) func(*gin.Engine) *gin.Engine {
 			fn     func(c *gin.Context)
 			method string
 		}{
-			"/documents/index": {fn: fn(handler.IndexDocument), method: http.MethodGet},
+			"/documents/index":  {fn: fn(handler.IndexDocument), method: http.MethodGet},
+			"/documents/search": {fn: fn(handler.Search), method: http.MethodGet},
 		}
 
 		api := engine.Group("/api")
@@ -76,12 +77,12 @@ func (h *httpHandler) IndexDocument(ctx context.Context, c *gin.Context) error {
 }
 
 func (h *httpHandler) Search(ctx context.Context, c *gin.Context) error {
-	// err := h.uc.IndexDocument(ctx)
-	// if err != nil {
-	// 	return fmt.Errorf("failed to IndexDocument: %w", err)
-	// }
+	res, err := h.uc.Search(ctx, c.Query("query"))
+	if err != nil {
+		return fmt.Errorf("failed to IndexDocument: %w", err)
+	}
 
-	c.Status(http.StatusOK)
+	c.JSON(http.StatusOK, res)
 
 	return nil
 }

@@ -9,7 +9,7 @@ import (
 )
 
 type Usecase interface {
-	Search(ctx context.Context) (*response.SearchResponse, error)
+	Search(ctx context.Context, query string) (*response.SearchResponse, error)
 	IndexDocument(ctx context.Context) error
 }
 
@@ -23,7 +23,14 @@ func New(repo repository.Repository) Usecase {
 	}
 }
 
-func (u *ucase) Search(ctx context.Context) (*response.SearchResponse, error) { return nil, nil }
+func (u *ucase) Search(ctx context.Context, query string) (*response.SearchResponse, error) {
+	res, err := u.repo.OpenSearch().Search(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to search document: %w", err)
+	}
+
+	return res, nil
+}
 
 func (u *ucase) IndexDocument(ctx context.Context) error {
 	blogs, err := u.repo.N46().GetBlogs(ctx)
