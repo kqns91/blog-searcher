@@ -10,7 +10,6 @@ type Blog struct {
 	ArtiCode  string     `json:"arti_code"`
 	ArtistImg string     `json:"artist_img"`
 	Name      string     `json:"name"`
-	Comments  []*Comment `json:"comments"`
 }
 
 type Blogs struct {
