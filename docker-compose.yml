@@ -37,5 +37,25 @@ services:
     networks:
       - sandbox
 
+  blog_searcher:
+    build:
+      context: .
+      dockerfile: Dockerfile_search
+    container_name: blog_searcher
+    environment:
+      - OPEN_SEARCH_ADDRESS=https://opensearch:9200
+      - USER_NAME=admin
+      - PASSWORD=admin
+      - N46_BASEURL=https://www.nogizaka46.com/s/n46/api/list
+      - PORT=8081
+    ports:
+      - 8081:8081
+    depends_on:
+      - opensearch
+    volumes:
+      - .:/go/src/app
+    networks:
+      - sandbox
+
 networks:
   sandbox:
